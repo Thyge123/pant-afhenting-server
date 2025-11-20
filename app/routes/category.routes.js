@@ -1,0 +1,25 @@
+export default (app) => {
+  const categories = require("../controllers/category.controller");
+
+  var router = require("express").Router();
+
+  // Create and Save a new Category
+  router.post("/", categories.create);
+
+  // Retrieve all Categories
+  router.get("/", categories.findAll);
+
+  // Retrieve a single Category with id
+  router.get("/:id", categories.findOne);
+
+  // Update a Category with id
+  router.put("/:id", categories.update);
+
+  // Delete a Category with id
+  router.delete("/:id", categories.delete);
+
+  // Delete all Categories
+  router.delete("/", categories.deleteAll);
+
+  app.use("/api/categories", router);
+};
