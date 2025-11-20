@@ -1,0 +1,19 @@
+export default (sequelize, Sequelize) => {
+  const Category = sequelize.define("category", {
+    categoryId: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    price: {
+      type: Sequelize.FLOAT,
+      allowNull: false,
+    },
+  });
+
+  return Category;
+};
