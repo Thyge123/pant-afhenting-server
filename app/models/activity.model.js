@@ -28,7 +28,7 @@ export default (sequelize, Sequelize) => {
     },
     PickUpDate: {
       type: Sequelize.DATE,
-      allowNull: false,
+      allowNull: true,
     },
   });
   return Activity;
