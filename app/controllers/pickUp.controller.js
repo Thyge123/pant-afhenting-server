@@ -1,6 +1,6 @@
 const db = require("../models");
 
-const PickUp = db.pickUp;
+const PickUp = db.pickUps;
 
 const Op = db.Sequelize.Op;
 

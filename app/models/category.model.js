@@ -1,4 +1,4 @@
-export default (sequelize, Sequelize) => {
+module.exports = (sequelize, Sequelize) => {
   const Category = sequelize.define("category", {
     categoryId: {
       type: Sequelize.INTEGER,

@@ -1,4 +1,4 @@
-export default (sequelize, Sequelize) => {
+module.exports = (sequelize, Sequelize) => {
   const ActivityItem = sequelize.define("activityItem", {
     itemId: {
       type: Sequelize.INTEGER,

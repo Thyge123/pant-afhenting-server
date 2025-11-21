@@ -1,6 +1,6 @@
 const db = require("../models");
 
-const Category = db.category;
+const Category = db.categories;
 
 const Op = db.Sequelize.Op;
 
