@@ -1,4 +1,4 @@
-export default (app) => {
+module.exports = (app) => {
   const pickUps = require("../controllers/pickUp.controller");
 
   var router = require("express").Router();

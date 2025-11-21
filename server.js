@@ -27,7 +27,8 @@ app.get("/", (req, res) => {
 
 require("./app/routes/tutorial.routes")(app);
 require("./app/routes/activities.routes")(app);
-require("./app/routes/activities.routes")(app);
+require("./app/routes/activityItem.routes")(app);
+require("./app/routes/activityStatus.routes")(app);
 require("./app/routes/category.routes")(app);
 require("./app/routes/pickUp.routes")(app);
 require("./app/routes/product.routes")(app);

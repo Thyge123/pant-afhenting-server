@@ -1,4 +1,4 @@
-export default (app) => {
+module.exports = (app) => {
   const products = require("../controllers/product.controller");
 
   var router = require("express").Router();
