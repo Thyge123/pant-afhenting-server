@@ -1,4 +1,4 @@
-export default (app) => {
+module.exports = (app) => {
   const activity = require("../controllers/activity.controller");
 
   var router = require("express").Router();
