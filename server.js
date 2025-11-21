@@ -12,7 +12,12 @@ app.use(cors());
 app.use(cors(corsOptions));*/
 const db = require("./app/models");
 
-db.sequelize.sync();
+//db.sequelize.sync();
+
+// Use { force: true } to drop tables and recreate them with new schema
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync db.");
+});
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
