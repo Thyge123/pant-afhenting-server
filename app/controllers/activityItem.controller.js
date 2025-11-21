@@ -1,5 +1,5 @@
 const db = require("../models");
-const ActivityItem = db.activityItem;
+const ActivityItem = db.activityItems;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new ActivityItem

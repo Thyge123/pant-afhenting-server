@@ -1,14 +1,15 @@
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, Sequelize) => {
   const ReportReason = sequelize.define("reportReason", {
-    reportReasonId: {
-      type: DataTypes.INTEGER,
+    id: {
+      type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
     reason: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
     },
   });
+
   return ReportReason;
 };

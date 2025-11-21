@@ -1,5 +1,5 @@
 const db = require("../models");
-const ReportReason = db.reportReason;
+const ReportReason = db.reportReasons;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {

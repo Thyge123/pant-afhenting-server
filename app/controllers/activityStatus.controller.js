@@ -1,5 +1,5 @@
 const db = require("../models");
-const ActivityStatus = db.activityStatus;
+const ActivityStatus = db.activityStatuses;
 const op = db.Sequelize.Op;
 
 // Create and Save a new ActivityStatus
