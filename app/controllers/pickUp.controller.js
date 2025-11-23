@@ -70,7 +70,7 @@ exports.update = (req, res) => {
   const id = req.params.id;
 
   PickUp.update(req.body, {
-    where: { id: id },
+    where: { pickUpId: id },
   })
     .then((num) => {
       if (num == 1) {
@@ -94,7 +94,7 @@ exports.delete = (req, res) => {
   const id = req.params.id;
 
   PickUp.destroy({
-    where: { id: id },
+    where: { pickUpId: id },
   })
     .then((num) => {
       if (num == 1) {

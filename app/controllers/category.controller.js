@@ -72,7 +72,7 @@ exports.update = (req, res) => {
   const id = req.params.id;
 
   Category.update(req.body, {
-    where: { id: id },
+    where: { categoryId: id },
   })
     .then((num) => {
       if (num == 1) {
@@ -96,7 +96,7 @@ exports.delete = (req, res) => {
   const id = req.params.id;
 
   Category.destroy({
-    where: { id: id },
+    where: { categoryId: id },
   })
     .then((num) => {
       if (num == 1) {

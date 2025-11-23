@@ -34,6 +34,26 @@ exports.create = (req, res) => {
     });
 };
 
+// Login user
+exports.login = (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  User.findOne({ where: { email: email, password: password } })
+    .then((data) => {
+      if (data) {
+        res.send({ message: "Login successful", user: data });
+      } else {
+        res.status(401).send({ message: "Invalid email or password" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while logging in.",
+      });
+    });
+};
+
 exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
@@ -73,7 +93,7 @@ exports.update = (req, res) => {
   const id = req.params.id;
 
   User.update(req.body, {
-    where: { id: id },
+    where: { userId: id },
   })
     .then((num) => {
       if (num == 1) {
@@ -97,7 +117,7 @@ exports.delete = (req, res) => {
   const id = req.params.id;
 
   User.destroy({
-    where: { id: id },
+    where: { userId: id },
   })
     .then((num) => {
       if (num == 1) {

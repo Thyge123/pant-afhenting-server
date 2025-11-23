@@ -72,7 +72,7 @@ exports.update = (req, res) => {
   const id = req.params.id;
 
   Activity.update(req.body, {
-    where: { id: id },
+    where: { activityId: id },
   })
     .then((num) => {
       if (num == 1) {
@@ -96,7 +96,7 @@ exports.delete = (req, res) => {
   const id = req.params.id;
 
   Activity.destroy({
-    where: { id: id },
+    where: { activityId: id },
   })
     .then((num) => {
       if (num == 1) {
@@ -136,7 +136,7 @@ exports.SetPickUpDate = (req, res) => {
   const id = req.params.id;
 
   Activity.update(req.body, {
-    where: { id: id },
+    where: { activityId: id },
   })
     .then((num) => {
       if (num == 1) {
