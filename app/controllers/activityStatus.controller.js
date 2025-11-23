@@ -1,11 +1,11 @@
 const db = require("../models");
-const ActivityStatus = db.activityStatuses;
-const op = db.Sequelize.Op;
+const ActivityStatus = db.activityStatus;
+const Op = db.Sequelize.Op;
 
 // Create and Save a new ActivityStatus
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.name) {
+  if (!req.body.status) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
@@ -14,7 +14,7 @@ exports.create = (req, res) => {
 
   // Create a ActivityStatus
   const activityStatus = {
-    name: req.body.name,
+    status: req.body.status,
   };
 
   // Save ActivityStatus in the database
@@ -32,8 +32,8 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  const name = req.query.name;
-  var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+  const status = req.query.status;
+  var condition = status ? { status: { [Op.like]: `%${status}%` } } : null;
 
   ActivityStatus.findAll({ where: condition })
     .then((data) => {
