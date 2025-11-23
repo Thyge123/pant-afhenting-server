@@ -12,12 +12,12 @@ app.use(cors());
 app.use(cors(corsOptions));*/
 const db = require("./app/models");
 
-//db.sequelize.sync();
+db.sequelize.sync();
 
 // Use { force: true } to drop tables and recreate them with new schema
-db.sequelize.sync({ force: true }).then(() => {
+/*db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");
-});
+});*/
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to pant afhentning server." });
 });
 
-require("./app/routes/tutorial.routes")(app);
+//require("./app/routes/tutorial.routes")(app);
 require("./app/routes/activities.routes")(app);
 require("./app/routes/activityItem.routes")(app);
 require("./app/routes/activityStatus.routes")(app);

@@ -71,7 +71,7 @@ exports.update = (req, res) => {
   const id = req.params.id;
 
   ActivityItem.update(req.body, {
-    where: { id: id },
+    where: { itemId: id },
   })
     .then((num) => {
       if (num == 1) {
@@ -95,7 +95,7 @@ exports.delete = (req, res) => {
   const id = req.params.id;
 
   ActivityItem.destroy({
-    where: { id: id },
+    where: { itemId: id },
   })
     .then((num) => {
       if (num == 1) {
