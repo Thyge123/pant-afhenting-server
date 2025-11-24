@@ -35,7 +35,13 @@ exports.findAll = (req, res) => {
   const name = req.query.name;
   let condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
 
-  ActivityItem.findAll({ where: condition })
+  ActivityItem.findAll({
+    where: condition,
+    include: [
+      { model: db.activities, as: "activity" },
+      { model: db.products, as: "product" },
+    ],
+  })
     .then((data) => {
       res.send(data);
     })
@@ -50,7 +56,12 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  ActivityItem.findByPk(id)
+  ActivityItem.findByPk(id, {
+    include: [
+      { model: db.activities, as: "activity" },
+      { model: db.products, as: "product" },
+    ],
+  })
     .then((data) => {
       if (data) {
         res.send(data);

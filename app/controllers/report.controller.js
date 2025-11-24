@@ -34,7 +34,13 @@ exports.findAll = (req, res) => {
     ? { reportReasonId: { [Op.like]: `%${reportReasonId}%` } }
     : null;
 
-  Report.findAll({ where: condition })
+  Report.findAll({
+    where: condition,
+    include: [
+      { model: db.activities, as: "activity" },
+      { model: db.reportReasons, as: "reportReason" },
+    ],
+  })
     .then((data) => {
       res.send(data);
     })
@@ -48,7 +54,12 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Report.findByPk(id)
+  Report.findByPk(id, {
+    include: [
+      { model: db.activities, as: "activity" },
+      { model: db.reportReasons, as: "reportReason" },
+    ],
+  })
     .then((data) => {
       if (data) {
         res.send(data);

@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       defaultValue: Sequelize.NOW,
     },
-    StatusId: {
+    statusId: {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
@@ -18,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
         key: "statusId",
       },
     },
-    UserId: {
+    userId: {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
@@ -26,7 +26,7 @@ module.exports = (sequelize, Sequelize) => {
         key: "userId",
       },
     },
-    PickUpDate: {
+    pickUpDate: {
       type: Sequelize.DATE,
       allowNull: true,
     },

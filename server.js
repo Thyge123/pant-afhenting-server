@@ -14,8 +14,7 @@ const db = require("./app/models");
 
 //db.sequelize.sync();
 
-// Use { force: true } to drop tables and recreate them with new schema'
-
+// Use { force: true } to drop tables and recreate them with new schema
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");
 });

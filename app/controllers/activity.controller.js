@@ -14,9 +14,9 @@ exports.create = (req, res) => {
   // Create a Tutorial
   const activity = {
     date: req.body.date,
-    StatusId: req.body.StatusId,
-    UserId: req.body.UserId,
-    PickUpDate: null,
+    statusId: req.body.statusId,
+    userId: req.body.userId,
+    pickUpDate: null,
   };
 
   // Save Tutorial in the database
@@ -36,7 +36,16 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
-  Activity.findAll({ where: condition })
+  Activity.findAll({
+    where: condition,
+    include: [
+      { model: db.users, as: "user" },
+      { model: db.activityItems, as: "activityItems" },
+      { model: db.activityStatus, as: "activityStatus" },
+      { model: db.reports, as: "reports" },
+      { model: db.pickUps, as: "pickUps" },
+    ],
+  })
     .then((data) => {
       res.send(data);
     })
@@ -51,7 +60,15 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Activity.findByPk(id)
+  Activity.findByPk(id, {
+    include: [
+      { model: db.users, as: "user" },
+      { model: db.activityItems, as: "activityItems" },
+      { model: db.activityStatus, as: "activityStatus" },
+      { model: db.reports, as: "reports" },
+      { model: db.pickUps, as: "pickUps" },
+    ],
+  })
     .then((data) => {
       if (data) {
         res.send(data);

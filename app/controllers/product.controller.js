@@ -35,7 +35,9 @@ exports.create = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Product.findByPk(id)
+  Product.findByPk(id, {
+    include: [{ model: db.categories, as: "category" }],
+  })
     .then((data) => {
       if (data) {
         res.send(data);
@@ -56,7 +58,10 @@ exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
 
-  Product.findAll({ where: condition })
+  Product.findAll({
+    where: condition,
+    include: [{ model: db.categories, as: "category" }],
+  })
     .then((data) => {
       res.send(data);
     })

@@ -34,7 +34,9 @@ exports.create = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  PickUp.findByPk(id)
+  PickUp.findByPk(id, {
+    include: [{ model: db.users, as: "user" }],
+  })
     .then((data) => {
       if (data) {
         res.send(data);
@@ -55,7 +57,10 @@ exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
 
-  PickUp.findAll({ where: condition })
+  PickUp.findAll({
+    where: condition,
+    include: [{ model: db.users, as: "user" }],
+  })
     .then((data) => {
       res.send(data);
     })
