@@ -7,15 +7,17 @@ const Op = db.Sequelize.Op;
 // Create and Save a new PickUp
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.name) {
+  if (!req.body.activityId || !req.body.productId || !req.body.quantity) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
   }
 
   // Create a PickUp
   const pickUp = {
-    name: req.body.name,
-    categoryId: req.body.categoryId,
+    activityId: req.body.activityId,
+    productId: req.body.productId,
+    quantity: req.body.quantity,
+    userId: req.body.userId,
   };
 
   // Save PickUp in the database
@@ -54,8 +56,11 @@ exports.findOne = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  const name = req.query.name;
-  var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+  const activityId = req.query.activityId;
+  const productId = req.query.productId;
+  let condition = activityId
+    ? { activityId: { [Op.like]: `%${activityId}%` } }
+    : null;
 
   PickUp.findAll({
     where: condition,
