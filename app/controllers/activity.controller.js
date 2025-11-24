@@ -42,8 +42,8 @@ exports.findAll = (req, res) => {
       { model: db.users, as: "user" },
       { model: db.activityItems, as: "activityItems" },
       { model: db.activityStatus, as: "activityStatus" },
-      { model: db.reports, as: "reports" },
-      { model: db.pickUps, as: "pickUps" },
+      { model: db.reports, as: "report" },
+      { model: db.pickUps, as: "pickUp" },
     ],
   })
     .then((data) => {
