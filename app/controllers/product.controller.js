@@ -15,6 +15,7 @@ exports.create = (req, res) => {
   // Create a Product
   const product = {
     name: req.body.name,
+    barcode: req.body.barcode,
     categoryId: req.body.categoryId,
   };
 

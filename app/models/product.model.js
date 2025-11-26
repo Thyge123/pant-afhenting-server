@@ -9,6 +9,11 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    barcode: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true,
+    },
     categoryId: {
       type: Sequelize.INTEGER,
       allowNull: false,
