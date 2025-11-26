@@ -40,9 +40,23 @@ exports.findAll = (req, res) => {
     where: condition,
     include: [
       { model: db.users, as: "user" },
-      { model: db.activityItems, as: "activityItems" },
+      {
+        model: db.activityItems,
+        as: "activityItems",
+        include: [
+          {
+            model: db.products,
+            as: "product",
+            include: [
+              {
+                model: db.categories,
+                as: "category",
+              },
+            ],
+          },
+        ],
+      },
       { model: db.activityStatus, as: "activityStatus" },
-      { model: db.reports, as: "report" },
       { model: db.pickUps, as: "pickUp" },
     ],
   })
@@ -63,10 +77,24 @@ exports.findOne = (req, res) => {
   Activity.findByPk(id, {
     include: [
       { model: db.users, as: "user" },
-      { model: db.activityItems, as: "activityItems" },
+      {
+        model: db.activityItems,
+        as: "activityItems",
+        include: [
+          {
+            model: db.products,
+            as: "product",
+            include: [
+              {
+                model: db.categories,
+                as: "category",
+              },
+            ],
+          },
+        ],
+      },
       { model: db.activityStatus, as: "activityStatus" },
-      { model: db.reports, as: "reports" },
-      { model: db.pickUps, as: "pickUps" },
+      { model: db.pickUps, as: "pickUp" },
     ],
   })
     .then((data) => {
@@ -81,6 +109,84 @@ exports.findOne = (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message: "Error retrieving Activity with id=" + id,
+      });
+    });
+};
+
+// Get activties by userId
+exports.findByUserId = (req, res) => {
+  const userId = req.params.userId;
+
+  Activity.findAll({
+    where: { userId: userId },
+    include: [
+      { model: db.users, as: "user" },
+      {
+        model: db.activityItems,
+        as: "activityItems",
+        include: [
+          {
+            model: db.products,
+            as: "product",
+            include: [
+              {
+                model: db.categories,
+                as: "category",
+              },
+            ],
+          },
+        ],
+      },
+      { model: db.activityStatus, as: "activityStatus" },
+      { model: db.pickUps, as: "pickUp" },
+    ],
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving activities.",
+      });
+    });
+};
+
+// Get all activities with statusId 1 for a specific userId
+exports.findByUserIdAndStatusId = (req, res) => {
+  const userId = req.params.userId;
+
+  Activity.findAll({
+    where: { userId: userId, statusId: 1 },
+    include: [
+      { model: db.users, as: "user" },
+      {
+        model: db.activityItems,
+        as: "activityItems",
+        include: [
+          {
+            model: db.products,
+            as: "product",
+            include: [
+              {
+                model: db.categories,
+                as: "category",
+              },
+            ],
+          },
+        ],
+      },
+      { model: db.activityStatus, as: "activityStatus" },
+      { model: db.pickUps, as: "pickUp" },
+    ],
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving activities.",
       });
     });
 };
