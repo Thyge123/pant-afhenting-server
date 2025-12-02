@@ -1,10 +1,20 @@
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize("pantafhentning", "root", "root", {
-  // database, username, password (skal måske ændres afhængig af setup)
-  host: "localhost",
-  dialect: "mysql",
-  port: 3306, // Ændre til din MySQL port
-});
+const sequelize = new Sequelize(
+  "railway",
+  "root",
+  "UCcCvCRNdyDSuOsOIrKpRvtkPyRFFOSh",
+  {
+    // database, username, password (skal måske ændres afhængig af setup)
+    host: "shortline.proxy.rlwy.net",
+    dialect: "mysql",
+    port: 15685, // Ændre til din MySQL port
+  }
+);
+
+sequelize
+  .authenticate()
+  .then(() => console.log("DB connection OK"))
+  .catch((err) => console.error("DB connection error:", err));
 
 const db = {};
 
