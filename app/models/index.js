@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize("pantafhentning", "root", "root", {
+const sequelize = new Sequelize("pantafhentning", "root", "Luwipe271001!", {
   // database, username, password (skal måske ændres afhængig af setup)
   host: "localhost",
   dialect: "mysql",
