@@ -16,6 +16,7 @@ sequelize
   .then(() => console.log("DB connection OK"))
   .catch((err) => console.error("DB connection error:", err));
 
+
 const db = {};
 
 db.Sequelize = Sequelize;
@@ -32,6 +33,7 @@ db.activityStatus = require("./activityStatus.model.js")(sequelize, Sequelize);
 db.categories = require("./category.model.js")(sequelize, Sequelize);
 db.products = require("./product.model.js")(sequelize, Sequelize);
 db.pickUps = require("./pickUp.model.js")(sequelize, Sequelize);
+db.pantLocations = require("./pantLocation.model.js")(sequelize, Sequelize);
 db.chats = require("./chat.model.js")(sequelize, Sequelize);
 
 // One user can have many activities
