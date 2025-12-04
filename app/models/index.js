@@ -97,4 +97,24 @@ db.pickUps.belongsTo(db.users, {
   as: "user",
 });
 
+// One user can have many chats
+db.users.hasMany(db.chats, {
+  foreignKey: "senderId",
+  as: "chats",
+});
+db.chats.belongsTo(db.users, {
+  foreignKey: "senderId",
+  as: "user",
+});
+
+// One activity can have many chats
+db.activities.hasMany(db.chats, {
+  foreignKey: "activityId",
+  as: "chats",
+});
+db.chats.belongsTo(db.activities, {
+  foreignKey: "activityId",
+  as: "activity",
+});
+
 module.exports = db;
