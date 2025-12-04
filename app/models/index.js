@@ -1,10 +1,21 @@
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize("pantafhentning", "root", "Luwipe271001!", {
-  // database, username, password (skal måske ændres afhængig af setup)
-  host: "localhost",
-  dialect: "mysql",
-  port: 3306, // Ændre til din MySQL port
-});
+const sequelize = new Sequelize(
+  "railway",
+  "root",
+  "UCcCvCRNdyDSuOsOIrKpRvtkPyRFFOSh",
+  {
+    // database, username, password (skal måske ændres afhængig af setup)
+    host: "shortline.proxy.rlwy.net",
+    dialect: "mysql",
+    port: 15685, // Ændre til din MySQL port
+  }
+);
+
+sequelize
+  .authenticate()
+  .then(() => console.log("DB connection OK"))
+  .catch((err) => console.error("DB connection error:", err));
+
 
 const db = {};
 
@@ -23,6 +34,7 @@ db.categories = require("./category.model.js")(sequelize, Sequelize);
 db.products = require("./product.model.js")(sequelize, Sequelize);
 db.pickUps = require("./pickUp.model.js")(sequelize, Sequelize);
 db.pantLocations = require("./pantLocation.model.js")(sequelize, Sequelize);
+db.chats = require("./chat.model.js")(sequelize, Sequelize);
 
 // One user can have many activities
 db.users.hasMany(db.activities, {
@@ -96,6 +108,26 @@ db.pickUps.belongsTo(db.activities, {
 db.pickUps.belongsTo(db.users, {
   foreignKey: "userId",
   as: "user",
+});
+
+// One user can have many chats
+db.users.hasMany(db.chats, {
+  foreignKey: "senderId",
+  as: "chats",
+});
+db.chats.belongsTo(db.users, {
+  foreignKey: "senderId",
+  as: "user",
+});
+
+// One activity can have many chats
+db.activities.hasMany(db.chats, {
+  foreignKey: "activityId",
+  as: "chats",
+});
+db.chats.belongsTo(db.activities, {
+  foreignKey: "activityId",
+  as: "activity",
 });
 
 module.exports = db;
