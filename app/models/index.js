@@ -32,6 +32,7 @@ db.activityStatus = require("./activityStatus.model.js")(sequelize, Sequelize);
 db.categories = require("./category.model.js")(sequelize, Sequelize);
 db.products = require("./product.model.js")(sequelize, Sequelize);
 db.pickUps = require("./pickUp.model.js")(sequelize, Sequelize);
+db.chats = require("./chat.model.js")(sequelize, Sequelize);
 
 // One user can have many activities
 db.users.hasMany(db.activities, {
@@ -105,6 +106,26 @@ db.pickUps.belongsTo(db.activities, {
 db.pickUps.belongsTo(db.users, {
   foreignKey: "userId",
   as: "user",
+});
+
+// One user can have many chats
+db.users.hasMany(db.chats, {
+  foreignKey: "senderId",
+  as: "chats",
+});
+db.chats.belongsTo(db.users, {
+  foreignKey: "senderId",
+  as: "user",
+});
+
+// One activity can have many chats
+db.activities.hasMany(db.chats, {
+  foreignKey: "activityId",
+  as: "chats",
+});
+db.chats.belongsTo(db.activities, {
+  foreignKey: "activityId",
+  as: "activity",
 });
 
 module.exports = db;
