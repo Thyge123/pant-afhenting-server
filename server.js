@@ -36,6 +36,7 @@ require("./app/routes/activities.routes")(app);
 require("./app/routes/activityItem.routes")(app);
 require("./app/routes/activityStatus.routes")(app);
 require("./app/routes/category.routes")(app);
+require("./app/routes/pantLocation.routes")(app);
 require("./app/routes/pickUp.routes")(app);
 require("./app/routes/product.routes")(app);
 require("./app/routes/report.routes")(app);
