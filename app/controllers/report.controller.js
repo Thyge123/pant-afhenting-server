@@ -3,7 +3,11 @@ const Report = db.reports;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-  if (!req.body.userId) {
+  if (
+    !req.body.reportReasonId ||
+    !req.body.activityId ||
+    !req.body.description
+  ) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
@@ -34,7 +38,13 @@ exports.findAll = (req, res) => {
     ? { reportReasonId: { [Op.like]: `%${reportReasonId}%` } }
     : null;
 
-  Report.findAll({ where: condition })
+  Report.findAll({
+    where: condition,
+    include: [
+      { model: db.activities, as: "activity" },
+      { model: db.reportReasons, as: "reportReason" },
+    ],
+  })
     .then((data) => {
       res.send(data);
     })
@@ -48,7 +58,12 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Report.findByPk(id)
+  Report.findByPk(id, {
+    include: [
+      { model: db.activities, as: "activity" },
+      { model: db.reportReasons, as: "reportReason" },
+    ],
+  })
     .then((data) => {
       if (data) {
         res.send(data);

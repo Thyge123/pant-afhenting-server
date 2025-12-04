@@ -12,6 +12,12 @@ module.exports = (app) => {
   // Retrieve a single Activity with id
   router.get("/:id", activity.findOne);
 
+  // Get all activities with statusId 1 for a specific userId
+  router.get("/user/:userId/status/1", activity.findByUserIdAndStatusId);
+
+  // Get activities by userId
+  router.get("/user/:userId", activity.findByUserId);
+
   // Update a Activity with id
   router.put("/:id", activity.update);
 

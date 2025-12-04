@@ -5,7 +5,14 @@ const Op = db.Sequelize.Op;
 // Create and Save a new User
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body) {
+  if (
+    !req.body.firstName ||
+    !req.body.lastName ||
+    !req.body.email ||
+    !req.body.password ||
+    !req.body.birthDate ||
+    !req.body.address
+  ) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
@@ -55,8 +62,15 @@ exports.login = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+  const firstName = req.query.firstName;
+  const lastName = req.query.lastName;
+  const email = req.query.email;
+  const password = req.query.password;
+  const birthDate = req.query.birthDate;
+  const address = req.query.address;
+  let condition = firstName
+    ? { firstName: { [Op.like]: `%${firstName}%` } }
+    : null;
 
   User.findAll({ where: condition })
     .then((data) => {

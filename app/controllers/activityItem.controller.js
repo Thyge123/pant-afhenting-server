@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new ActivityItem
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.name) {
+  if (!req.body.activityId || !req.body.productId || !req.body.quantity) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
   }
@@ -32,10 +32,19 @@ exports.create = (req, res) => {
 
 // Retrieve all ActivityItems from the database.
 exports.findAll = (req, res) => {
-  const name = req.query.name;
-  let condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+  const activityId = req.query.activityId;
+  const productId = req.query.productId;
+  let condition = activityId
+    ? { activityId: { [Op.like]: `%${activityId}%` } }
+    : null;
 
-  ActivityItem.findAll({ where: condition })
+  ActivityItem.findAll({
+    where: condition,
+    include: [
+      { model: db.activities, as: "activity" },
+      { model: db.products, as: "product" },
+    ],
+  })
     .then((data) => {
       res.send(data);
     })
@@ -50,7 +59,12 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  ActivityItem.findByPk(id)
+  ActivityItem.findByPk(id, {
+    include: [
+      { model: db.activities, as: "activity" },
+      { model: db.products, as: "product" },
+    ],
+  })
     .then((data) => {
       if (data) {
         res.send(data);

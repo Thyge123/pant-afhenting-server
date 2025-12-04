@@ -61,7 +61,7 @@ db.products.belongsTo(db.categories, {
 
 // One activity belongs to one status
 db.activities.belongsTo(db.activityStatus, {
-  foreignKey: "StatusId",
+  foreignKey: "statusId",
   as: "activityStatus",
 });
 
