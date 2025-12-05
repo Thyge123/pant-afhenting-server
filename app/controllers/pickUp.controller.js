@@ -15,8 +15,6 @@ exports.create = (req, res) => {
   // Create a PickUp
   const pickUp = {
     activityId: req.body.activityId,
-    productId: req.body.productId,
-    quantity: req.body.quantity,
     userId: req.body.userId,
   };
 
@@ -57,13 +55,29 @@ exports.findOne = (req, res) => {
 
 exports.findAll = (req, res) => {
   const activityId = req.query.activityId;
-  const productId = req.query.productId;
   let condition = activityId
     ? { activityId: { [Op.like]: `%${activityId}%` } }
     : null;
 
   PickUp.findAll({
     where: condition,
+    include: [{ model: db.users, as: "user" }],
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving pickups.",
+      });
+    });
+};
+
+// Get pickUps by User ID
+exports.findByUserId = (req, res) => {
+  const userId = req.params.userId;
+  PickUp.findAll({
+    where: { userId: userId },
     include: [{ model: db.users, as: "user" }],
   })
     .then((data) => {
